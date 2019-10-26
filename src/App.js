@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
 
+<<<<<<< HEAD
 class App extends React.Component {
   render() {
     return (
@@ -24,6 +25,14 @@ class App extends React.Component {
       </div>
     );
   }
+=======
+function App() {
+  return (
+    <div className="bg-main-pink">
+      Hey
+    </div>
+  );
+>>>>>>> a3ed1d68b98d56f6ffdc231c35091fef7da179cd
 }
 
 export default App;
