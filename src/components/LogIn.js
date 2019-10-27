@@ -8,7 +8,7 @@ class LogIn extends Component {
 
     }
     handleSubmit = (e) => {
-        this.props.updateProfile({message: 'hey'})
+        this.props.updateProfile({uid: '99', profile: {name: 'bob'}})
         // let provider = firebase.auth.GoogleAuthProvider()
 
         // firebase.auth().signInWithPopup(provider)
