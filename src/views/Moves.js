@@ -149,38 +149,47 @@ export default class Moves extends React.Component {
           return <Redirect to='/inputmove'/>
       }
     return (
-      <div>
-        <div className="bg-main-pink">
-            Restaurant: 
-            <button onClick={this.restaurantClick}>
-                {this.state.restaurant.name}
-            </button>
-            <div>
-            {this.state.restaurantShowing &&
-                <MoveInfo
-                    handleClose={this.restaurantClick}
-                />
-            }
-            </div>
-        </div>
-        <div>
-            Experience: 
-            <button  onClick={this.experienceClick}>
+        <div className= "text-4xl text-center text-blue-900" >
+                <div className= "text-center text-blue-900" >
+                    the move is<span className= "text-red-500">...</span>
+                </div>
+                <button  onClick={this.experienceClick}>
                 {this.state.experience.name}
-            </button>
-            <div>
-            {this.state.experienceShowing &&
-                <MoveInfo
-                    handleClose={this.experienceClick}
-                />
-            }
-            </div>
-        </div>
+                </button>
+                <div>
+                {this.state.experienceShowing &&
+                    <MoveInfo
+                        handleClose={this.experienceClick}
+                    />
+                }
+                </div>
 
-        <span>Is this the move?</span>
-        <button>Yes</button>
-        <button onClick={this.notTheMove}>No</button>        
-      </div>
+                <div className= "text-center text-blue-900" >
+                    and eat<span className= "text-red-500">...</span>
+                </div>
+                <button onClick={this.restaurantClick}>
+                    {this.state.restaurant.name}
+                </button>
+                <div>
+                {this.state.restaurantShowing &&
+                    <MoveInfo
+                        handleClose={this.restaurantClick}
+                    />
+                }
+                </div>
+
+                this the move<span className= "text-red-500">?</span>
+                  <div className="bg-blue-200 w-full g-gray-800" >
+                    <button className="bg-white hover:bg-blue-700 text-blue-900 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        yes
+                    </button>
+                    <button className="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+                    " type="button" onClick={this.notTheMove}>
+                        no
+                    </button>
+                  </div>
+            </div>
+
     );
   }
 }
