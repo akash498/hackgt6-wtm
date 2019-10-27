@@ -1,7 +1,3 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth'
-
 let firebaseConfig = {
     apiKey: "AIzaSyAi6jJfkViqnPlHi6rjyQlVTcqexoGIwM8",
     authDomain: "whats-the-move-4ce4f.firebaseapp.com",

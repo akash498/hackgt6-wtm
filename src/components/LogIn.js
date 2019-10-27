@@ -15,11 +15,16 @@ class LogIn extends Component {
         .then( user => {
             firebase.firestore().collection('users').doc(user.user.uid).get()
             .then(res => {
-                this.props.updateProfile('hey')
+                // Check if user exists
+                if(res.exists) {
+                    this.props.updateProfile(res.data())
+                }
             })
         })
     }
-
+    // 
+    // NEED API KEY!!!!!!!!!
+    // 
     firebaseSignIn = (e) => {
         let provider = new firebase.auth.FacebookAuthProvider()
 
@@ -27,7 +32,10 @@ class LogIn extends Component {
         .then( user => {
             firebase.firestore().collection('users').doc(user.user.uid).get()
             .then(res => {
-                this.props.updateProfile('hey')
+                // Check if user exists
+                if(res.exists) {
+                    this.props.updateProfile(res.data())
+                }
             })
         })
     }
@@ -49,7 +57,7 @@ class LogIn extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateProfile: (profile) => dispatch(updateProfile(profile))
+        updateProfile: (profile) => dispatch(updateProfile(profile)),
     }
 }
 
