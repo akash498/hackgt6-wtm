@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class InputMove extends Component {
     state = {
         user_exists: false,
         user_info: {},
         satisfaction: 0,
+        completed: false,
     }
 
     componentWillMount() {
@@ -49,6 +51,8 @@ class InputMove extends Component {
                     last_r: res.data[3],
                     episode: res.data[4],
                     last_s: res.data[5],                   
+                }).then( () => {
+                    this.setState({completed: true})
                 })
             })
         }
@@ -66,12 +70,17 @@ class InputMove extends Component {
                     last_r: res.data[3],
                     episode: res.data[4],
                     last_s: res.data[5],                   
+                }).then( () => {
+                    this.setState({completed: true})
                 })
             })
         }
     }
 
     render() {
+        if (this.state.completed) {
+            return <Redirect to='/moves'></Redirect>
+         } 
         return (
             <div className="w-full g-gray-800" >
                 <button onClick={() => this.stepLearning(0)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">

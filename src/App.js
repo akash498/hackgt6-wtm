@@ -2,6 +2,7 @@ import React from 'react';
 import Dashboard from './views/Dashboard'
 import LogIn from './components/LogIn'
 import InputMove from './components/InputMove'
+import Moves from './views/Moves'
 import firebaseConfig from './config/firebaseConfig'
 import firebase from 'firebase'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
@@ -14,7 +15,8 @@ function App() {
         <Switch>
           <Route path='/dashboard' exact component={Dashboard}/>
           <Route path='/inputmove' exact component={InputMove}/>
-          <Route path='/login' exact component={LogIn}/>
+          <Route path='/' exact component={LogIn}/>
+          <Route path='/moves' exact component={Moves}/>
         </Switch>
       </Router>
     </div>

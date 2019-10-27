@@ -14,20 +14,7 @@ class LogIn extends Component {
 
         firebase.auth().signInWithPopup(provider)
         .then( user => {
-            firebase.firestore().collection('users').doc(user.user.uid).get()
-            .then(res => {
-                // Check if user exists
-                if(res.exists) {
-                    this.props.updateProfile(res.data())
-                    this.setState({
-                        loginSuccess: true
-                    })
-                }
-
-                else {
-                    this.setState({loginSuccess: true})
-                }
-            })
+            this.setState({loginSuccess: true})
         })
     }
     // 
@@ -38,23 +25,12 @@ class LogIn extends Component {
 
         firebase.auth().signInWithPopup(provider)
         .then( user => {
-            firebase.firestore().collection('users').doc(user.user.uid).get()
-            .then(res => {
-                // Check if user exists
-                if(res.exists) {
-                    this.props.updateProfile(res.data())
-                    this.setState({
-                        loginSuccess: true
-                    })
-                }
-
-                // 
-            })
+            this.setState({loginSuccess: true})
         })
     }
 
     render() {
-        if (this.state.loginSuccess === true) {
+        if (this.state.loginSuccess) {
             return <Redirect to='/dashboard'/>
         }
         return (

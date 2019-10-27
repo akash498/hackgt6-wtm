@@ -1,32 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import axios from 'axios';
+import firebase from 'firebase'
 
 export default class Moves extends React.Component {
     constructor(props, context) {
         super(props,context);
         this.state = {
-            activity: '',
+            experience: '',
             restaurant: '',
-            activityCategory: '',
-            restaurantCategory: 'desserts',
+            experienceCategory: '',
+            restaurantCategory: '',
             latitude: '',
             longitude: '',
             priceRange: '',
         }
     }
     errorFunction() {
-        console.log("erro geting coords")
+        alert("Unable to retreive your location at this time")
     }
-    successFunction() {
+    successFunction = (position) => {
         this.setState({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         })
     }
     componentWillMount() {
+        // Load the current user's info from firebase
+        firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get()
+        .then( user_info => {
+            this.setState({restaurantCategory: user_info.data().last_r})
+            this.setState({experienceCategory: user_info.data().last_e})
+        })
+
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+            navigator.geolocation.getCurrentPosition(this.successFunction, this.errorFunction);
         }
         else {
             alert("Can't get your location")
