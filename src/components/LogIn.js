@@ -2,24 +2,37 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { updateProfile } from '../store/actions/profileActions'
+import {Redirect} from 'react-router-dom'
 
 class LogIn extends Component {
     state = {
-
+        loginSuccess: false,
     }
-    handleSubmit = (e) => {
-        this.props.updateProfile({message: 'hey'})
-        // let provider = firebase.auth.GoogleAuthProvider()
 
-        // firebase.auth().signInWithPopup(provider)
-        // .then( user => {
-        //     firebase.firestore().collection('users').doc(user.user.uid).get()
-        //     .then(res => {
-        //         this.props.updateProfile('hey')
-        //     })
-        // })
+    googleSignIn = (e) => {
+        let provider = new firebase.auth.GoogleAuthProvider()
+
+        firebase.auth().signInWithPopup(provider)
+        .then( user => {
+            this.setState({loginSuccess: true})
+        })
     }
+    // 
+    // NEED API KEY!!!!!!!!!
+    // 
+    firebaseSignIn = (e) => {
+        let provider = new firebase.auth.FacebookAuthProvider()
+
+        firebase.auth().signInWithPopup(provider)
+        .then( user => {
+            this.setState({loginSuccess: true})
+        })
+    }
+
     render() {
+        if (this.state.loginSuccess) {
+            return <Redirect to='/dashboard'/>
+        }
         return (
             <div className="w-full max-w-md bg-blue-200" >
               <form onSubmit={this.handleSubmit} className=" bg-blue-200  rounded px-8 py-8 pt-8">
@@ -39,7 +52,7 @@ class LogIn extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateProfile: (profile) => dispatch(updateProfile(profile))
+        updateProfile: (profile) => dispatch(updateProfile(profile)),
     }
 }
 

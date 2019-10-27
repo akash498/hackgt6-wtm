@@ -5,14 +5,17 @@ const initState = {
         last_s: '',
         last_e: '',
         last_r: '',
-        episode: 0
+        episode: 0,
+        auth: {}
     }
 }
 
 const profileReducer = (state = initState, action) => {
     switch(action.type) {
         case 'UPDATE_PROFILE':
-            console.log('updated profile!')            
+            return Object.assign({}, state, {
+                profile: action.profile
+            })
     }
     return state
 }
