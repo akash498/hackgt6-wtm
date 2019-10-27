@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "firebase": "^7.2.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -10,6 +11,7 @@
     "react-redux-firebase": "^3.0.3",
     "react-scripts": "^3.2.0",
     "redux": "^4.0.4",
+    "redux-firestore": "^0.9.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
