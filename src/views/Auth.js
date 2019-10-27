@@ -46,8 +46,8 @@ class LogIn extends Component {
 
     render() {
         return (
-            <div className="w-full g-gray-800" >
-                <button onClick={this.googleSignIn} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            <div className="w-full" >
+                <button onClick={this.googleSignIn} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline pt-20" type="button">
                     Sign In With Google
                 </button>
 

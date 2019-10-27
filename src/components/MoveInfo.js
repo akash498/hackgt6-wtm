@@ -6,7 +6,9 @@ export default class MoveInfo extends React.Component {
         super(props, context);
         this.state = {
             isShowing: true,
-            numVisits: 0,
+            numVisits: 21,
+            timeframe: 5,
+            averagePrice: 12.00
         }
     }
     componentDidMount() {
@@ -42,16 +44,31 @@ export default class MoveInfo extends React.Component {
             this.setState({
                 numVisits: res.data.totalResults
             })
+            
+            let avg = 0
+
+            // Calculate most popular item from the data
+            for (var transaction in res.page_content) {
+                avg += transaction.grandAmount
+            }
+
+            avg = avg / res.page_content.length
+
+            this.setState({
+                averagePrice: avg
+            })
         })
         
     }
     
     render() {
         return (
-            <div>
+            <div className="bg-white rounded-sm p-5">
                 <div>Details: </div>
-                <div>Number of visits in the past week: {this.state.numVisits}</div>
-                <button onClick={this.props.handleClose}>Hide</button>
+                <img src={this.props.info.image_url} className="mx-auto"></img>
+
+                <div>{this.state.numVisits} visits in the past {this.state.timeframe} hours:</div>
+                <div>The average price for a trip to {this.props.info.name} right now is ${this.state.averagePrice}</div>
             </div>
         )
     }

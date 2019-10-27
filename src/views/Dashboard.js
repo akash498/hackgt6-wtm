@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 class Dashboard extends Component {
     render() {
         return (
-            <div className="bg-blue-200 container text-6xl text-blue-900 text-center ">
+            <div className="bg-blue-200 container text-6xl text-blue-900 text-center mx-auto">
                 <span className="mt-20">WTM</span><span className="text-red-500">?</span>
             </div>
         )

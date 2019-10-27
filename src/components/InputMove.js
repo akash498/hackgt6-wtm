@@ -82,19 +82,20 @@ class InputMove extends Component {
             return <Redirect to='/moves'></Redirect>
          } 
         return (
-            <div className= "text-center" >
+            <div className= "text-center pt-20" >
+            <div className="text-2xl text-center pb-2"><div className="text-blue-900">How much are you willing to spend:</div></div>
             <div className="bg-blue-200 w-full g-gray-800" >
                 <button onClick={() => this.stepLearning(0)} className="bg-white hover:bg-blue-700 text-blue-900 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                    budget<span className="text-red-500">?</span>
+                    <span className="p-4">budget<span className="text-red-500">?</span></span>
                 </button>
-
             </div>
             <div className = "" >   
             <span className="text-blue-900">or</span>
+            <br></br>
             </div>
             <div className = "" >
                 <button onClick={() => this.stepLearning(1)} className="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                    boujee<span className="text-red-500">?</span>
+                <span className="p-4">boujie<span className="text-red-500">?</span></span>
                 </button>
             </div>
             </div>

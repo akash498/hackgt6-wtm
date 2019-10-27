@@ -11,7 +11,7 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 function App() {
   return (
-    <div className="bg-blue-200 text-indigo-500 h-full">
+    <div className="bg-blue-200 text-indigo-500 h-full" style={{'height': '100vh'}}>
       <Dashboard>
       </Dashboard>
       <Router>

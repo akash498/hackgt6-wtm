@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import firebase from 'firebase'
 import MoveInfo from '../components/MoveInfo.js'
+import Loading from '../components/Loading'
 import {Redirect} from 'react-router-dom'
 
 export default class Moves extends React.Component {
@@ -18,6 +19,9 @@ export default class Moves extends React.Component {
             restaurantShowing: false,
             experienceShowing: false,
             not_the_move: false,
+            loading: true,
+
+
         }
     }
     
@@ -29,6 +33,7 @@ export default class Moves extends React.Component {
             this.setState({experienceCategory: user_info.data().last_e})
 
             navigator.geolocation.getCurrentPosition((position) => {
+
                 let YelpURL = `${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search`;
 
                 // Fetch the restaurant data
@@ -46,6 +51,7 @@ export default class Moves extends React.Component {
                 })
                 .then(
                   (res) => {
+                    this.setState({loading: false})
                     if(res.data.total < 1) {
                         // Fetch the restaurant data
                         axios.get(YelpURL, {
@@ -145,11 +151,17 @@ export default class Moves extends React.Component {
         })
     }
   render() {
-      if(this.state.not_the_move) {
+        if(this.state.not_the_move) {
           return <Redirect to='/inputmove'/>
-      }
-    return (
-        <div className= "text-4xl text-center text-blue-900" >
+        }
+
+        if(this.state.loading) {
+            return <Loading></Loading>
+        }
+
+        else {
+            return (
+                <div className= "text-4xl text-center text-blue-900 pt-20" >
                 <div className= "text-center text-blue-900" >
                     the move is<span className= "text-red-500">...</span>
                 </div>
@@ -160,10 +172,11 @@ export default class Moves extends React.Component {
                 {this.state.experienceShowing &&
                     <MoveInfo
                         handleClose={this.experienceClick}
+                        info={this.state.experience}
                     />
                 }
                 </div>
-
+        
                 <div className= "text-center text-blue-900" >
                     and eat<span className= "text-red-500">...</span>
                 </div>
@@ -174,12 +187,13 @@ export default class Moves extends React.Component {
                 {this.state.restaurantShowing &&
                     <MoveInfo
                         handleClose={this.restaurantClick}
+                        info={this.state.restaurant}
                     />
                 }
                 </div>
-
-                this the move<span className= "text-red-500">?</span>
-                  <div className="bg-blue-200 w-full g-gray-800" >
+        
+                Is this the move<span className= "text-red-500">?</span>
+                    <div className="bg-blue-200 w-full g-gray-800" >
                     <button className="bg-white hover:bg-blue-700 text-blue-900 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         yes
                     </button>
@@ -187,10 +201,11 @@ export default class Moves extends React.Component {
                     " type="button" onClick={this.notTheMove}>
                         no
                     </button>
-                  </div>
-            </div>
-
-    );
+                    </div>
+                </div>
+            );
+        }
+    
   }
 }
 
