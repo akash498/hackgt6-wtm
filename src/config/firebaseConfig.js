@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
-let config = {
+let firebaseConfig = {
     apiKey: "AIzaSyAi6jJfkViqnPlHi6rjyQlVTcqexoGIwM8",
     authDomain: "whats-the-move-4ce4f.firebaseapp.com",
     databaseURL: "https://whats-the-move-4ce4f.firebaseio.com",
@@ -13,4 +13,4 @@ let config = {
     measurementId: "G-J5562MSYLD"
 }
 
-firebase.initializeApp(config)
+export default firebaseConfig
