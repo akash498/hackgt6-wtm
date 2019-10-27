@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import InputMove from '../components/InputMove'
 import { connect } from 'react-redux'
 
 class Dashboard extends Component {
@@ -7,7 +8,8 @@ class Dashboard extends Component {
 
         return (
             <div className="container">
-                Welcome home
+                <InputMove>
+                </InputMove>
             </div>
         )
     }

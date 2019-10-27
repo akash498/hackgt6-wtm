@@ -15,6 +15,15 @@ export default class Moves extends React.Component {
             priceRange: '',
         }
     }
+    errorFunction() {
+        console.log("erro geting coords")
+    }
+    successFunction() {
+        this.setState({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        })
+    }
     componentWillMount() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
@@ -29,12 +38,6 @@ export default class Moves extends React.Component {
         else {
             this.setState({priceRange: '2,3,4'});
         }
-    }
-    successFunction() {
-        this.setState({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        })
     }
     getMoveFromYelp = () => {
         let restaurantYelpURL = 'https://api.yelp.com/v3/businesses/search';
@@ -110,4 +113,4 @@ export default class Moves extends React.Component {
   }
 }
 
-export default App;
+

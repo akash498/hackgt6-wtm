@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { updateProfile } from '../store/actions/profileActions'
+import {Redirect} from 'react-router-dom'
 
 class LogIn extends Component {
     state = {
-
+        loginSuccess: false,
     }
 
     googleSignIn = (e) => {
@@ -18,6 +19,13 @@ class LogIn extends Component {
                 // Check if user exists
                 if(res.exists) {
                     this.props.updateProfile(res.data())
+                    this.setState({
+                        loginSuccess: true
+                    })
+                }
+
+                else {
+                    this.setState({loginSuccess: true})
                 }
             })
         })
@@ -35,12 +43,20 @@ class LogIn extends Component {
                 // Check if user exists
                 if(res.exists) {
                     this.props.updateProfile(res.data())
+                    this.setState({
+                        loginSuccess: true
+                    })
                 }
+
+                // 
             })
         })
     }
 
     render() {
+        if (this.state.loginSuccess === true) {
+            return <Redirect to='/dashboard'/>
+        }
         return (
             <div className="w-full g-gray-800" >
                 <button onClick={this.googleSignIn} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
