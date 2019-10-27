@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import firebase from 'firebase'
+import '../components/MoveInfo'
 
 export default class Moves extends React.Component {
     constructor(props, context) {
@@ -13,6 +14,8 @@ export default class Moves extends React.Component {
             latitude: '',
             longitude: '',
             priceRange: '',
+            restaurantShowing: false,
+            experienceShowing: false,
         }
     }
     
@@ -77,26 +80,44 @@ export default class Moves extends React.Component {
 
 
     }
-    seeActivityInfo = () => {
-
-    }
-    seeRestaurantInfo = () => {
-
-    }
     seeAnotherMove = () => {
 
     }
     notTheMove = () => {
 
     }
+    restaurantClick = () => {
+        this.setState({
+            restaurantShowing: !this.state.restaurantShowing,
+        })
+    }
+    experienceClick = () => {
+        this.setState({
+            experienceShowing: !this.state.experienceShowing,
+        })
+    }
   render() {
     return (
       <div>
         <div className="bg-main-pink">
             Restaurant: {this.state.restaurant.name}
+            <div>
+            {this.state.restaurantShowing &&
+                <MoveInfo
+                    handleClose={this.restaurantClick}
+                />
+            }
+            </div>
         </div>
         <div>
             Experience: {this.state.experience.name}
+            <div>
+            {this.state.restaurantShowing &&
+                <MoveInfo
+                    handleClose={this.experienceClick}
+                />
+            }
+            </div>
         </div>
       </div>
     );
