@@ -6,8 +6,8 @@ class Dashboard extends Component {
     console.log(this.props)
 
         return (
-            <div className="container">
-                Welcome home
+            <div className="bg-blue-200 container text-6xl text-blue-900 text-center ">
+                <span className="mt-20">WTM</span><span className="text-red-500">?</span>
             </div>
         )
     }

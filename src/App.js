@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function App() {
   return (
-    <div className="text-indigo-500">
+    <div className="bg-blue-200 text-indigo-500 h-full">
       <Dashboard>
       </Dashboard>
 
