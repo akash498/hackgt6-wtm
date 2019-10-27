@@ -1,8 +1,7 @@
 import React from 'react';
 import Dashboard from './views/Dashboard'
 import LogIn from './components/LogIn'
-import logo from './logo.svg';
-import axios from 'axios';
+import InputMove from './components/InputMove'
 import firebaseConfig from './config/firebaseConfig'
 import firebase from 'firebase'
 
@@ -16,6 +15,9 @@ function App() {
 
       <LogIn>
       </LogIn>
+
+      <InputMove>
+      </InputMove>
     </div>
   );
 }
