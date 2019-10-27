@@ -1,10 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+import Dashboard from './views/Dashboard'
+import LogIn from './components/LogIn'
 
 function App() {
   return (
-    <div className="bg-main-pink">
-      Hey
+    <div className="text-indigo-500">
+      <Dashboard>
+      </Dashboard>
+
+      <LogIn>
+      </LogIn>
     </div>
   );
 }

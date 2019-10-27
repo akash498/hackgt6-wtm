@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import firebase from 'firebase'
+import { updateProfile } from '../store/actions/profileActions'
 
 class LogIn extends Component {
     state = {
 
     }
     handleSubmit = (e) => {
+        this.props.updateProfile({message: 'hey'})
+        // let provider = firebase.auth.GoogleAuthProvider()
 
+        // firebase.auth().signInWithPopup(provider)
+        // .then( user => {
+        //     firebase.firestore().collection('users').doc(user.user.uid).get()
+        //     .then(res => {
+        //         this.props.updateProfile('hey')
+        //     })
+        // })
     }
     render() {
         return (
@@ -20,7 +32,7 @@ class LogIn extends Component {
                   <input type="password" name="email" id="" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300" placeholder="Enter your password"/>
                 </div>
                 <div>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Sign In</button>
+                <button onClick={this.handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Sign In</button>
                 </div>
                 </form>
             </div>
@@ -28,4 +40,10 @@ class LogIn extends Component {
     }
 }
 
-export default LogIn
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateProfile: (profile) => dispatch(updateProfile(profile))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LogIn)
