@@ -7,18 +7,13 @@ import firebaseConfig from './config/firebaseConfig'
 import firebase from 'firebase'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 firebase.initializeApp(firebaseConfig)
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 function App() {
   return (
-<<<<<<< HEAD
     <div className="bg-blue-200 text-indigo-500 h-full">
       <Dashboard>
       </Dashboard>
-
-      <LogIn>
-      </LogIn>
-=======
-    <div className="text-indigo-500">
       <Router>
         <Switch>
           <Route path='/dashboard' exact component={Dashboard}/>
@@ -27,7 +22,6 @@ function App() {
           <Route path='/moves' exact component={Moves}/>
         </Switch>
       </Router>
->>>>>>> 838d61c71174a5f4824a993016bc37415a5b65f9
     </div>
   );
 }

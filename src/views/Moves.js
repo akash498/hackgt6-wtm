@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import firebase from 'firebase'
-import '../components/MoveInfo'
+import MoveInfo from '../components/MoveInfo.js'
+import {Redirect} from 'react-router-dom'
 
 export default class Moves extends React.Component {
     constructor(props, context) {
@@ -16,10 +17,11 @@ export default class Moves extends React.Component {
             priceRange: '',
             restaurantShowing: false,
             experienceShowing: false,
+            not_the_move: false,
         }
     }
     
-    componentWillMount() {
+    componentDidMount() {
         // Load the current user's info from firebase
         firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get()
         .then( user_info => {
@@ -44,9 +46,32 @@ export default class Moves extends React.Component {
                 })
                 .then(
                   (res) => {
-                    this.setState({
-                      restaurant: res.data.businesses[0],
-                  })
+                    if(res.data.total < 1) {
+                        // Fetch the restaurant data
+                        axios.get(YelpURL, {
+                            headers: {
+                                Authorization: 'Bearer zOgvFpoIJGgLqhvrbNf7ZjfNa4mBe6uO5DfxV-y_sTY6pimI3U_jy3xoRvMIi6ZlUM_DYIKL_HOcI_xlpyu-3UHGQaQJ9NlXWen6Shby2_FMEgZ-r0jd0p2zHI20XXYx',
+                            },
+                            params: {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                sort_by: 'rating',
+                                price: user_info.data().last_s % 2 === 0? '1': '2,3,4'
+                            }    
+                        })
+                        .then(
+                        (res) => {
+                            this.setState({
+                            restaurant: res.data.businesses[0],
+                        })
+                        })
+                    }
+
+                    else {
+                        this.setState({
+                        restaurant: res.data.businesses[0]
+                        })
+                    }
                 })
                 .catch((err) => {
                     console.log(err)
@@ -67,9 +92,32 @@ export default class Moves extends React.Component {
                 })
                 .then(
                   (res) => {
-                    this.setState({
-                      experience: res.data.businesses[0],
-                  })
+                    if(res.data.total < 1) {
+                        // Fetch the restaurant data
+                        axios.get(YelpURL, {
+                            headers: {
+                                Authorization: 'Bearer zOgvFpoIJGgLqhvrbNf7ZjfNa4mBe6uO5DfxV-y_sTY6pimI3U_jy3xoRvMIi6ZlUM_DYIKL_HOcI_xlpyu-3UHGQaQJ9NlXWen6Shby2_FMEgZ-r0jd0p2zHI20XXYx',
+                            },
+                            params: {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                sort_by: 'rating',
+                                price: user_info.data().last_s % 2 === 0? '1': '2,3,4'
+                            }    
+                        })
+                        .then(
+                        (res) => {
+                            this.setState({
+                            experience: res.data.businesses[0],
+                        })
+                        })
+                    }
+
+                    else {
+                        this.setState({
+                        experience: res.data.businesses[0]
+                        })
+                    }
                 })
                 .catch((err) => {
                     console.log(err)
@@ -80,13 +128,13 @@ export default class Moves extends React.Component {
 
 
     }
-    seeAnotherMove = () => {
-
-    }
     notTheMove = () => {
-
+        this.setState({
+            not_the_move: true
+        })
     }
     restaurantClick = () => {
+        console.log('showing')
         this.setState({
             restaurantShowing: !this.state.restaurantShowing,
         })
@@ -97,10 +145,16 @@ export default class Moves extends React.Component {
         })
     }
   render() {
+      if(this.state.not_the_move) {
+          return <Redirect to='/inputmove'/>
+      }
     return (
       <div>
         <div className="bg-main-pink">
-            Restaurant: {this.state.restaurant.name}
+            Restaurant: 
+            <button onClick={this.restaurantClick}>
+                {this.state.restaurant.name}
+            </button>
             <div>
             {this.state.restaurantShowing &&
                 <MoveInfo
@@ -110,15 +164,22 @@ export default class Moves extends React.Component {
             </div>
         </div>
         <div>
-            Experience: {this.state.experience.name}
+            Experience: 
+            <button  onClick={this.experienceClick}>
+                {this.state.experience.name}
+            </button>
             <div>
-            {this.state.restaurantShowing &&
+            {this.state.experienceShowing &&
                 <MoveInfo
                     handleClose={this.experienceClick}
                 />
             }
             </div>
         </div>
+
+        <span>Is this the move?</span>
+        <button>Yes</button>
+        <button onClick={this.notTheMove}>No</button>        
       </div>
     );
   }
